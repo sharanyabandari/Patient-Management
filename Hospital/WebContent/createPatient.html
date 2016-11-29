@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Create Patient</title>
+<script type="text/javascript">
+function validation()
+{
+var a = document.form.fname.value;
+if(a=="")
+{
+alert("Please Enter Your First Name");
+document.form.fname.focus();
+return false;
+}
+if(!isNaN(a))
+{
+alert("Please Enter Only Characters in first name");
+document.form.fname.select();
+return false;
+}
+
+
+
+
+
+var a = document.form.lname.value;
+if(a=="")
+{
+alert("Please Enter Your Last Name");
+document.form.lname.focus();
+return false;
+}
+if(!isNaN(a))
+{
+alert("Please Enter Only Characters in last name");
+document.form.lname.select();
+return false;
+}
+
+
+
+var a = document.form.age.value;
+if(a=="")
+{
+alert("please Enter the Age ");
+document.form.age.focus();
+return false;
+}
+if(isNaN(a))
+{
+alert("Enter the valid age");
+document.form.age.focus();
+return false;
+}
+if((a.length < 1) || (a.length > 3))
+{
+alert(" Please Enter Valid Age");
+document.form.age.select();
+return false;
+}
+
+
+
+
+
+var dd=document.form.dd.value;
+var mmm=document.form.mmm.value;
+var yyyy=document.form.yyyy.value;
+if(!validdate(dd,mmm,yyyy))
+{
+  return false;
+}
+ 
+function validdate(dd,mm,yyyy)
+{
+  var dateobj = new Date(yyyy, mm, dd);
+  var datecurrent= new Date();
+  if((dateobj.getMonth()!=mm)||(dateobj.getDate()!=dd)||(dateobj.getFullYear()!=yyyy)||(dateobj>datecurrent))
+  {
+   alert("Please select your date of birth.");
+   return false;
+  }
+  return true;
+}
+
+
+
+
+
+if(document.form.type.selectedIndex==0)
+{ alert("Please select your Gender");
+document.form.type.focus();
+return false;
+}
+
+
+
+var a = document.form.phone.value;
+if(a=="")
+{
+alert("please Enter the Contact Number");
+document.form.phone.focus();
+return false;
+}
+if(isNaN(a))
+{
+alert("Enter the valid Mobile Number(Like : 9566337337)");
+document.form.phone.focus();
+return false;
+}
+if(a.length != 10)
+{
+alert(" Your Mobile Number must be 10 Integers");
+document.form.phone.select();
+return false;
+}
+
+
+
+
+
+
+var a = document.form.text.value;
+if(a=="")
+{
+alert("Please Enter Your text information Here");
+document.form.text.focus();
+return false;
+}
+
+
+
+
+
+
+}
+</script>
+</head>
+<body>
+<center>
+<h1>Patient Entry Screen</h1>
+<form name="form" method="post" action="/Hospital/PatientManagement" onsubmit="return validation()">
+<table border='0'>
+<tr>
+<td> First Name:<sup style="color:#F00">*</sup></td>
+<td><input type="text" name="fname""></td>
+</tr>
+
+<br>
+
+<tr>
+<td> Last Name:<sup style="color:#F00">*</sup></td>
+<td><input type="text" name="lname""></td>
+</tr>
+
+<br>
+
+
+
+<tr>
+<td> Age:<sup style="color:#F00">*</sup></td>
+<td><input type="text" name="age"></td>
+</tr>
+
+<br>
+
+<tr>
+  <td><LABEL for="dob">Date of Birth:<sup style="color:#F00">*</sup> </LABEL></td>
+  <td>
+  <select id="dd" name="dd">
+        <option value="dd">DD</option>
+        <script type="text/javascript">
+   for(var i=1;i<32;i++)
+    document.write("<option value='"+i+"'>" + i+"</option> ");
+   </script>
+        </select>
+                </select>
+                 <select id="mmm" name="mmm">
+         <option value="mmm">MMM</option>
+         <option value="0">JAN</option>
+         <option value="1">FEB</option>
+         <option value="2">MAR </option>
+         <option value="3">APR</option>
+         <option value="4">MAY</option>
+         <option value="5">JUN</option>
+         <option value="6">JUL</option>
+         <option value="7">AUG</option>
+         <option value="8">SEP</option>
+         <option value="9">OCT</option>
+         <option value="10">NOV</option>
+         <option value="11">DEC</option>
+        </select>
+        <select id="yyyy" name="yyyy">
+           <option value="yyyy"selected>YYYY</option>
+        <script type="text/javascript">
+   var dt= new Date();
+   for(var i=1979;i<=dt.getFullYear();i++)
+    document.write("<option value='"+i+"'>" + i+"</option> ");
+  </script>
+  </select>  
+  </td>
+ </tr>
+
+
+<br>
+
+
+<tr>
+<td><LABEL>Gender:<sup style="color:#F00">*</sup> </LABEL></td>
+<td>
+<select name="type" class="texta1">
+   <option name="sel" value="Selected">Select</option>
+   <option name="male" value="male">Male</option>
+   <option name="female" value="female">Female</option>
+</select>
+</td>
+</tr> 
+ 
+<br>
+
+<tr>
+<td> Mobile No:<sup style="color:#F00">*</sup></td>
+<td><input type="text" name="phone"></td>
+</tr>
+<tr>
+
+<br>
+
+
+
+<tr>
+<td> Free Text Information:<sup style="color:#F00">*</sup></td>
+<td><textarea name="text" cols="30" rows="4"></textarea></td>
+</tr>
+
+
+<br>
+
+
+<tr>
+<td></td>
+<td><input type="submit" name="sub" value="Submit"></td>
+</tr>
+
+</table>
+</form>
+
+</center>
+
+</body>
+</html>
