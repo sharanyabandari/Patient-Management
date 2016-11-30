@@ -41,7 +41,7 @@ public class PatientManagement extends HttpServlet {
 		//request.getRequestDispatcher(path)
 		if(searchName!=null && !searchName.trim().isEmpty())
 		{
-			System.out.println("Search work: "+searchName);
+			System.out.println("Search word: "+searchName);
 			List<PatientPojo> patientList = searchPatientDetails(searchName);
 			if(patientList!=null)
 			{
@@ -68,9 +68,19 @@ public class PatientManagement extends HttpServlet {
 		String dd = request.getParameter("dd");
 		String mmm = request.getParameter("mmm");
 		String yyyy = request.getParameter("yyyy");
-		String gender = request.getParameter("gendar"); //texta1
+		String gender = request.getParameter("gender"); //texta1
 		String phone = request.getParameter("phone");
 		String text = request.getParameter("text");
+		
+		System.out.println( fname 	);
+		System.out.println( lname 	);
+		System.out.println( age 	);
+		System.out.println( dd 		);
+		System.out.println( mmm 	);
+		System.out.println( yyyy 	);
+		System.out.println( gender 	);
+		System.out.println( phone 	);
+		System.out.println( text 	);
 		
 		PatientPojo patientObj = new PatientPojo();
 		
@@ -114,9 +124,9 @@ public class PatientManagement extends HttpServlet {
 			stmt = conn.prepareStatement("INSERT INTO T_HPTL_PATIENT( REC_NUM, FNAME, LNAME, AGE, DOB, GENDER, PHONE, INFO  )  VALUES ( SQ_T_HPTL_PATIENT.NEXTVAL,?,?,?,?,?,?,?)");
 			stmt.setString(1, patientObj.getFname());
 			stmt.setString(2, patientObj.getLname());
-			stmt.setInt(3, 12);
+			stmt.setString(3, patientObj.getAge());
 			stmt.setDate(4, java.sql.Date.valueOf(patientObj.getDob()));
-			stmt.setString(5, "M");
+			stmt.setString(5, patientObj.getGender());
 			stmt.setString(6, patientObj.getPhone());
 			stmt.setString(7, patientObj.getText());
 			stmt.executeUpdate();
@@ -147,7 +157,7 @@ public class PatientManagement extends HttpServlet {
 		PreparedStatement stmt = null;
 		try{
 
-			stmt = conn.prepareStatement("SELECT REC_NUM,  FNAME,  LNAME,  AGE,  DOB,  GENDER,  PHONE,  INFO FROM T_HPTL_PATIENT WHERE FNAME like '%"+patientName+"%' or LNAME like '%"+patientName+"%'");
+			stmt = conn.prepareStatement("SELECT REC_NUM,  FNAME,  LNAME,  AGE,  DOB,  GENDER,  PHONE,  INFO FROM T_HPTL_PATIENT WHERE upper(FNAME) like upper('%"+patientName+"%') or upper(LNAME) like upper('%"+patientName+"%')");
 			rs1 = stmt.executeQuery();
 			
 			if(rs1.next())
@@ -244,7 +254,7 @@ public class PatientManagement extends HttpServlet {
 	{
 		Connection conn = null;		
 		try{			
-			conn = DriverManager.getConnection(	"jdbc:oracle:thin:@localhost:1521:XE",	"ICMS",	"ICMS");
+			conn = DriverManager.getConnection(	"jdbc:oracle:thin:@localhost:1521:XE",	"HOSPITAL",	"HOSPITAL");
 			
 			System.out.println("DB connection success.");
 		}
